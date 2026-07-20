@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>War of the Gods: Tenochtitlan — Key Art</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Cinzel', serif;
+  }
+
+  .poster {
+    position: relative;
+    width: 1200px;
+    height: 1600px;
+    background: #04020a;
+    overflow: hidden;
+    box-shadow: 0 0 120px rgba(255, 24, 0, 0.3), 0 0 60px rgba(90, 90, 154, 0.2);
+  }
+
+  /* ── BACKGROUND LAYERS ── */
+  .bg-base {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, #110820 0%, #06030f 50%, #02010a 100%);
+  }
+
+  .bg-smoke {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 40% 80% at 25% 50%, rgba(22, 10, 42, 0.9) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 80% at 75% 50%, rgba(10, 6, 22, 0.95) 0%, transparent 70%);
+  }
+
+  /* ── OBSIDIAN SPLIT LINE ── */
+  .split-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(200, 128, 10, 0.3) 10%,
+      rgba(255, 24, 0, 0.8) 30%,
+      rgba(255, 215, 0, 1) 50%,
+      rgba(255, 24, 0, 0.8) 70%,
+      rgba(200, 128, 10, 0.3) 90%,
+      transparent 100%
+    );
+    z-index: 20;
+    filter: blur(0.5px);
+  }
+
+  .split-glow {
+    position: absolute;
+    left: calc(50% - 6px);
+    top: 0;
+    bottom: 0;
+    width: 14px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(255, 24, 0, 0.05) 20%,
+      rgba(255, 215, 0, 0.15) 45%,
+      rgba(255, 215, 0, 0.15) 55%,
+      rgba(255, 24, 0, 0.05) 80%,
+      transparent 100%
+    );
+    z-index: 19;
+    filter: blur(3px);
+  }
+
+  /* ── LEFT PANEL: FACE CLOSE-UP ── */
+  .panel-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .face-light {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 58% 38%,
+        rgba(200, 128, 10, 0.18) 0%,
+        rgba(255, 80, 0, 0.08) 30%,
+        transparent 65%
+      ),
+      radial-gradient(ellipse 30% 60% at 75% 40%,
+        rgba(255, 180, 40, 0.12) 0%,
+        transparent 60%
+      ),
+      linear-gradient(160deg, transparent 40%, rgba(0,0,0,0.95) 100%);
+  }
+
+  .face-svg {
+    position: absolute;
+    left: -20px;
+    top: 80px;
+    width: 680px;
+    height: 900px;
+  }
+
+  /* ── RIGHT PANEL: FULL BODY SILHOUETTE ── */
+  .panel-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .body-light {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 90% at 50% 60%,
+        rgba(90, 90, 154, 0.15) 0%,
+        transparent 70%
+      ),
+      radial-gradient(ellipse 40% 30% at 50% 15%,
+        rgba(255, 24, 0, 0.12) 0%,
+        transparent 60%
+      ),
+      linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+
+  .warrior-svg {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+    width: 480px;
+    height: 1100px;
+  }
+
+  /* ── GROUND EFFECTS ── */
+  .ground-mist {
+    position: absolute;
+    bottom: 320px;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to top,
+      rgba(255, 24, 0, 0.06) 0%,
+      rgba(90, 90, 154, 0.04) 40%,
+      transparent 100%
+    );
+    z-index: 15;
+    filter: blur(8px);
+  }
+
+  /* ── AZTEC BORDER ORNAMENT ── */
+  .border-frame {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 25;
+  }
+
+  /* ── PARTICLE / SMOKE EFFECTS ── */
+  .particles {
+    position: absolute;
+    inset: 0;
+    z-index: 16;
+    pointer-events: none;
+  }
+
+  /* ── TEXT OVERLAY ── */
+  .text-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  .studio-tag {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 8px;
+    color: rgba(200, 128, 10, 0.7);
+    text-transform: uppercase;
+  }
+
+  .title-block {
+    position: absolute;
+    bottom: 260px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0 60px;
+  }
+
+  .title-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 10px;
+    color: rgba(200, 128, 10, 0.9);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .title-main {
+    font-family: 'Cinzel Decorative', 'Cinzel', serif;
+    font-size: 78px;
+    font-weight: 900;
+    line-height: 0.9;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow:
+      0 0 40px rgba(255, 24, 0, 0.8),
+      0 0 80px rgba(255, 24, 0, 0.4),
+      0 4px 0px rgba(0,0,0,0.8),
+      2px 2px 0 rgba(255, 24, 0, 0.3);
+    display: block;
+  }
+
+  .title-of {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: rgba(255, 215, 0, 0.85);
+    letter-spacing: 14px;
+    margin: 8px 0;
+  }
+
+  .title-gods {
+    font-family: 'Cinzel Decorative', 'Cinzel', serif;
+    font-size: 88px;
+    font-weight: 900;
+    line-height: 0.9;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-shadow:
+      0 0 40px rgba(200, 128, 10, 0.9),
+      0 0 80px rgba(255, 215, 0, 0.4),
+      0 4px 0 rgba(0,0,0,0.8),
+      2px 2px 0 rgba(200, 128, 10, 0.4);
+  }
+
+  .title-location {
+    font-family: 'Cinzel', serif;
+    font-size: 19px;
+    font-weight: 400;
+    letter-spacing: 16px;
+    color: rgba(200, 128, 10, 0.75);
+    text-transform: uppercase;
+    margin-top: 18px;
+  }
+
+  .divider-ornament {
+    width: 320px;
+    height: 2px;
+    margin: 20px auto;
+    background: linear-gradient(to right, transparent, rgba(255,215,0,0.6), rgba(255,24,0,0.9), rgba(255,215,0,0.6), transparent);
+  }
+
+  .tagline {
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(220, 200, 160, 0.85);
+    letter-spacing: 2px;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  /* ── BOTTOM BAR ── */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 240px;
+    background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(4,2,10,0.85) 70%, transparent 100%);
+    z-index: 28;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 60px 50px;
+  }
+
+  .rating-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .rating-box {
+    width: 52px;
+    height: 52px;
+    border: 2px solid rgba(200,128,10,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(200,128,10,0.9);
+  }
+
+  .rating-text {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(200,128,10,0.6);
+    font-family: 'Cinzel', serif;
+  }
+
+  .platform-icons {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .platform-pill {
+    border: 1px solid rgba(200,128,10,0.4);
+    padding: 6px 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(200,128,10,0.7);
+    text-transform: uppercase;
+  }
+
+  .release-info {
+    text-align: right;
+  }
+
+  .release-date {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(255,215,0,0.9);
+    letter-spacing: 3px;
+  }
+
+  .release-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: rgba(200,128,10,0.6);
+    margin-top: 4px;
+  }
+
+  /* ── CHARACTER NAME PLATES ── */
+  .name-left {
+    position: absolute;
+    bottom: 330px;
+    left: 40px;
+    z-index: 31;
+    text-align: left;
+  }
+
+  .name-right {
+    position: absolute;
+    bottom: 330px;
+    right: 40px;
+    z-index: 31;
+    text-align: right;
+  }
+
+  .char-role {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: rgba(200,128,10,0.7);
+    text-transform: uppercase;
+  }
+
+  .char-name {
+    font-family: 'Cinzel Decorative', 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(255,24,0,0.6);
+  }
+
+  .char-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: rgba(255,100,50,0.75);
+    letter-spacing: 2px;
+  }
+
+  /* ── SCAN LINES (cinematic texture) ── */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    z-index: 40;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0,0,0,0.06) 3px,
+      rgba(0,0,0,0.06) 4px
+    );
+  }
+
+  /* ── VIGNETTE ── */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 38;
+    pointer-events: none;
+    background: radial-gradient(ellipse 90% 90% at 50% 50%,
+      transparent 40%,
+      rgba(0,0,0,0.3) 70%,
+      rgba(0,0,0,0.75) 100%
+    );
+  }
+
+  /* ── OBSIDIAN SMOKE PARTICLES (CSS) ── */
+  @keyframes drift1 {
+    0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    20%  { opacity: 0.4; }
+    80%  { opacity: 0.2; }
+    100% { transform: translateY(-400px) translateX(30px) scale(2.5); opacity: 0; }
+  }
+  @keyframes drift2 {
+    0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    20%  { opacity: 0.3; }
+    80%  { opacity: 0.1; }
+    100% { transform: translateY(-350px) translateX(-45px) scale(3); opacity: 0; }
+  }
+  @keyframes drift3 {
+    0%   { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+    30%  { opacity: 0.25; }
+    100% { transform: translateY(-500px) translateX(20px) scale(2); opacity: 0; }
+  }
+  @keyframes drift4 {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    15%  { opacity: 0.5; }
+    85%  { opacity: 0.15; }
+    100% { transform: translateY(-280px) translateX(-20px) scale(1.8); opacity: 0; }
+  }
+
+  .smoke-p {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(20px);
+  }
+  .s1 { width:120px; height:120px; background:rgba(22,10,42,0.7); left:180px; bottom:400px; animation: drift1 8s infinite 0s ease-out; }
+  .s2 { width:90px; height:90px; background:rgba(90,90,154,0.4); left:280px; bottom:420px; animation: drift2 10s infinite 2s ease-out; }
+  .s3 { width:150px; height:150px; background:rgba(16,6,28,0.6); left:100px; bottom:380px; animation: drift3 12s infinite 4s ease-out; }
+  .s4 { width:80px; height:80px; background:rgba(255,24,0,0.15); right:200px; bottom:410px; animation: drift4 9s infinite 1s ease-out; }
+  .s5 { width:110px; height:110px; background:rgba(22,10,42,0.5); right:300px; bottom:430px; animation: drift1 11s infinite 3s ease-out; }
+  .s6 { width:70px; height:70px; background:rgba(200,128,10,0.12); right:160px; bottom:400px; animation: drift2 7s infinite 5s ease-out; }
+</style>
+</head>
+<body>
+<div class="poster">
+  <!-- BG -->
+  <div class="bg-base"></div>
+  <div class="bg-smoke"></div>
+
+  <!-- SMOKE PARTICLES -->
+  <div class="particles">
+    <div class="smoke-p s1"></div>
+    <div class="smoke-p s2"></div>
+    <div class="smoke-p s3"></div>
+    <div class="smoke-p s4"></div>
+    <div class="smoke-p s5"></div>
+    <div class="smoke-p s6"></div>
+  </div>
+
+  <!-- LEFT PANEL: FACE -->
+  <div class="panel-left">
+    <svg class="face-svg" viewBox="0 0 640 860" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Chiaroscuro skin gradient -->
+        <radialGradient id="skinGrad" cx="62%" cy="38%" r="55%">
+          <stop offset="0%"  stop-color="#c8844a"/>
+          <stop offset="25%" stop-color="#a06030"/>
+          <stop offset="55%" stop-color="#5a2e10"/>
+          <stop offset="80%" stop-color="#2a1008"/>
+          <stop offset="100%" stop-color="#100408"/>
+        </radialGradient>
+        <!-- Rim light gradient (left cheek) -->
+        <linearGradient id="rimLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"  stop-color="#1a2060" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </linearGradient>
+        <!-- Eye glow -->
+        <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#ff4400"/>
+          <stop offset="40%" stop-color="#cc2200"/>
+          <stop offset="100%" stop-color="#440000" stop-opacity="0"/>
+        </radialGradient>
+        <!-- Smoke mirror glow -->
+        <radialGradient id="mirrorGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#6644aa"/>
+          <stop offset="50%" stop-color="#2a1060"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <filter id="softBlur">
+          <feGaussianBlur stdDeviation="2.5"/>
+        </filter>
+        <filter id="eyeBlur">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+        <filter id="hardShadow">
+          <feDropShadow dx="4" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.9"/>
+        </filter>
+        <filter id="glowRed">
+          <feGaussianBlur stdDeviation="8" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="skinTexture">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" result="noise"/>
+          <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+          <feBlend in="SourceGraphic" in2="grayNoise" mode="overlay" result="blend"/>
+          <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+        </filter>
+        <clipPath id="faceClip">
+          <ellipse cx="340" cy="370" rx="240" ry="290"/>
+        </clipPath>
+      </defs>
+
+      <!-- NECK & TORSO suggestion -->
+      <ellipse cx="330" cy="820" rx="160" ry="100" fill="#0a0305"/>
+      <!-- Neck column -->
+      <rect x="240" y="640" width="190" height="200" rx="20" fill="url(#skinGrad)" opacity="0.7"/>
+      <!-- Neck shadow -->
+      <rect x="240" y="640" width="190" height="200" rx="20" fill="linear-gradient(180deg, transparent, #000)" opacity="0.5"/>
+
+      <!-- WARRIOR NECKLACE (jade beads + skull) -->
+      <g opacity="0.85">
+        <!-- Cord -->
+        <path d="M160 630 Q330 680 500 630" fill="none" stroke="#2a6010" stroke-width="4"/>
+        <!-- Jade beads -->
+        <circle cx="180" cy="635" r="9" fill="#30a050" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="210" cy="643" r="8" fill="#28904a" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="240" cy="650" r="9" fill="#35b058" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="270" cy="655" r="8" fill="#30a050" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="330" cy="660" r="12" fill="#208040" stroke="#105020" stroke-width="2"/>
+        <!-- Center skull pendant -->
+        <ellipse cx="330" cy="670" rx="14" ry="12" fill="#e8d8c0" stroke="#b0a080" stroke-width="1"/>
+        <circle cx="325" cy="667" r="3" fill="#2a1808"/>
+        <circle cx="335" cy="667" r="3" fill="#2a1808"/>
+        <path d="M322 675 Q330 679 338 675" fill="none" stroke="#2a1808" stroke-width="1.5"/>
+        <circle cx="390" cy="655" r="8" fill="#28904a" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="420" cy="648" r="9" fill="#30a050" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="450" cy="642" r="8" fill="#35b058" stroke="#1a5030" stroke-width="1.5"/>
+        <circle cx="478" cy="635" r="9" fill="#28904a" stroke="#1a5030" stroke-width="1.5"/>
+      </g>
+
+      <!-- OBSIDIAN EAR ORNAMENTS -->
+      <g>
+        <!-- Left ear (dark side) -->
+        <ellipse cx="115" cy="370" rx="30" ry="22" fill="#1a1030" stroke="#6644aa" stroke-width="1.5" opacity="0.7"/>
+        <ellipse cx="115" cy="370" rx="18" ry="13" fill="#0a0818" stroke="#4433aa" stroke-width="1" opacity="0.8"/>
+        <!-- Right ear -->
+        <ellipse cx="552" cy="360" rx="32" ry="24" fill="#3a2010" stroke="#c8800a" stroke-width="2"/>
+        <ellipse cx="552" cy="360" rx="20" ry="15" fill="#1a0e08" stroke="#a06008" stroke-width="1.5"/>
+        <!-- Hanging gold disc -->
+        <circle cx="552" cy="395" r="14" fill="#c8800a" stroke="#ffd700" stroke-width="1.5"/>
+        <circle cx="552" cy="395" r="8" fill="#ffd700" opacity="0.6"/>
+        <text x="552" y="399" text-anchor="middle" font-size="10" fill="#a05800">☽</text>
+      </g>
+
+      <!-- FACE BASE — chiaroscuro foundation -->
+      <ellipse cx="330" cy="370" rx="240" ry="295"
+               fill="url(#skinGrad)" filter="url(#hardShadow)"/>
+
+      <!-- SKIN TEXTURE overlay -->
+      <ellipse cx="330" cy="370" rx="240" ry="295" fill="url(#skinGrad)" filter="url(#skinTexture)" opacity="0.25"/>
+
+      <!-- OBSIDIAN FACE PAINT — Tezcatlipoca markings -->
+      <!-- Black stripe across eyes (Tezcatlipoca's signature) -->
+      <rect x="88" y="318" width="470" height="75" rx="8"
+            fill="#05020e" opacity="0.82"/>
+      <!-- Smoke mirror band with slight iridescence -->
+      <rect x="88" y="318" width="470" height="75" rx="8"
+            fill="none" stroke="#2a1060" stroke-width="1" opacity="0.5"/>
+      <!-- Mirror-reflection shimmer on band -->
+      <path d="M88 330 Q260 320 440 330 Q520 335 558 338"
+            fill="none" stroke="#6644aa" stroke-width="2" opacity="0.4" filter="url(#softBlur)"/>
+
+      <!-- CHEEKBONE WAR PAINT — left (dark, rim-lit blue) -->
+      <path d="M120 430 Q160 450 220 460 Q200 490 170 485 Q130 478 115 460 Z"
+            fill="#16102a" opacity="0.75"/>
+      <path d="M120 430 Q160 450 220 460" fill="none" stroke="#3333aa" stroke-width="2" opacity="0.5"/>
+
+      <!-- CHEEKBONE WAR PAINT — right (warm-lit) -->
+      <path d="M540 410 Q500 435 440 448 Q460 475 490 472 Q530 465 548 445 Z"
+            fill="#4a2010" opacity="0.6"/>
+      <path d="M540 410 Q500 435 440 448" fill="none" stroke="#c86010" stroke-width="1.5" opacity="0.6"/>
+
+      <!-- RITUAL SCARRING / obsidian dot pattern -->
+      <g opacity="0.55">
+        <circle cx="190" cy="452" r="3.5" fill="#6644aa"/>
+        <circle cx="205" cy="440" r="2.5" fill="#8866cc"/>
+        <circle cx="178" cy="464" r="2"   fill="#5533aa"/>
+        <circle cx="460" cy="440" r="3.5" fill="#c8800a"/>
+        <circle cx="475" cy="455" r="2.5" fill="#ffa000"/>
+        <circle cx="448" cy="462" r="2"   fill="#a06008"/>
+      </g>
+
+      <!-- BROW RIDGE — pronounced, dramatic -->
+      <path d="M130 320 Q200 295 300 308 Q340 312 360 310"
+            fill="#2a1008" stroke="#1a0a04" stroke-width="8" opacity="0.7" stroke-linecap="round"/>
+      <path d="M530 315 Q460 292 365 308"
+            fill="#2a1008" stroke="#1a0a04" stroke-width="8" opacity="0.7" stroke-linecap="round"/>
+      <!-- Brow highlight (lit side) -->
+      <path d="M370 308 Q440 294 520 312"
+            fill="none" stroke="rgba(200,128,10,0.5)" stroke-width="2"/>
+
+      <!-- EYE SOCKETS — deep set -->
+      <ellipse cx="210" cy="360" rx="62" ry="38" fill="#04020a" opacity="0.9"/>
+      <ellipse cx="448" cy="356" rx="60" ry="37" fill="#04020a" opacity="0.85"/>
+
+      <!-- EYES — burning ember red (Tezcatlipoca's eye color) -->
+      <!-- Left eye (mostly in shadow, rim-lit) -->
+      <g filter="url(#eyeBlur)" opacity="0.7">
+        <ellipse cx="210" cy="360" rx="30" ry="20" fill="#ff2200" opacity="0.4"/>
+      </g>
+      <ellipse cx="210" cy="360" rx="44" ry="28" fill="#0c0408"/>
+      <ellipse cx="210" cy="360" rx="30" ry="19" fill="#200408"/>
+      <ellipse cx="210" cy="360" rx="18" ry="13" fill="#cc1800"/>
+      <ellipse cx="210" cy="360" rx="10" ry="9"  fill="#ff2400"/>
+      <ellipse cx="210" cy="360" rx="5"  ry="4.5" fill="#ff5500"/>
+      <!-- Pupil -->
+      <ellipse cx="210" cy="360" rx="3"  ry="3.5" fill="#000"/>
+      <!-- Smoke wisps from eye -->
+      <g filter="url(#softBlur)" opacity="0.5">
+        <path d="M185 345 Q175 330 165 318" fill="none" stroke="#6644aa" stroke-width="3"/>
+        <path d="M195 343 Q192 328 190 315" fill="none" stroke="#4422aa" stroke-width="2"/>
+      </g>
+
+      <!-- Right eye (lit side, more visible) -->
+      <g filter="url(#eyeBlur)" opacity="0.9">
+        <ellipse cx="448" cy="356" rx="36" ry="24" fill="#ff3300" opacity="0.5"/>
+      </g>
+      <ellipse cx="448" cy="356" rx="46" ry="28" fill="#1a0810"/>
+      <ellipse cx="448" cy="356" rx="32" ry="20" fill="#3a1008"/>
+      <ellipse cx="448" cy="356" rx="20" ry="14" fill="#dd2200"/>
+      <ellipse cx="448" cy="356" rx="11" ry="10" fill="#ff3a00"/>
+      <ellipse cx="448" cy="356" rx="5.5" ry="5" fill="#ff6622"/>
+      <!-- Pupil -->
+      <ellipse cx="448" cy="356" rx="3"  ry="3.5" fill="#110000"/>
+      <!-- Catch light -->
+      <ellipse cx="443" cy="352" rx="2.5" ry="2" fill="rgba(255,180,100,0.6)"/>
+      <!-- Reflection: the obsidian mirror -->
+      <ellipse cx="454" cy="360" rx="4" ry="3" fill="rgba(90,90,154,0.4)"/>
+
+      <!-- NOSE — strong, broad bridge -->
+      <path d="M300 310 Q295 380 280 420 Q295 440 330 445 Q368 440 382 420 Q365 380 362 310"
+            fill="url(#skinGrad)" stroke="none"/>
+      <!-- Nose shadow -->
+      <path d="M295 320 Q291 390 278 425" fill="none" stroke="#0a0302" stroke-width="8" opacity="0.5"/>
+      <!-- Nose highlight (lit side) -->
+      <path d="M340 320 Q344 375 350 410" fill="none" stroke="rgba(200,120,50,0.35)" stroke-width="4"/>
+      <!-- Nostril flare -->
+      <ellipse cx="290" cy="435" rx="20" ry="10" fill="#0a0302" opacity="0.6"/>
+      <ellipse cx="372" cy="432" rx="18" ry="9"  fill="#3a1a08" opacity="0.5"/>
+
+      <!-- LIP LINE — set, determined expression -->
+      <path d="M235 510 Q280 502 330 505 Q382 502 428 510"
+            fill="none" stroke="#0a0204" stroke-width="3" opacity="0.8"/>
+      <!-- Lower lip -->
+      <path d="M235 510 Q330 528 428 510 Q420 540 330 545 Q240 540 235 510 Z"
+            fill="#6a2a18" stroke="#0a0204" stroke-width="1" opacity="0.8"/>
+      <!-- Upper lip -->
+      <path d="M235 510 Q275 498 305 504 L330 500 L357 504 Q388 497 428 510
+               Q405 508 380 514 Q355 518 330 516 Q305 518 280 514 Q255 508 235 510 Z"
+            fill="#5a2015" stroke="#0a0204" stroke-width="1" opacity="0.9"/>
+      <!-- Lip highlight -->
+      <path d="M295 499 Q330 494 366 498" fill="none" stroke="rgba(200,100,60,0.3)" stroke-width="2"/>
+
+      <!-- SWEAT beads (realism) -->
+      <g opacity="0.6">
+        <ellipse cx="380" cy="288" rx="3" ry="4" fill="rgba(200,140,80,0.5)"/>
+        <ellipse cx="395" cy="300" rx="2" ry="3" fill="rgba(200,140,80,0.4)"/>
+        <!-- Sweat trail down temple -->
+        <path d="M405 310 Q410 340 415 368 Q416 385 412 400"
+              fill="none" stroke="rgba(180,110,60,0.5)" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="412" cy="405" rx="3.5" ry="2.5" fill="rgba(180,110,60,0.4)"/>
+      </g>
+
+      <!-- HAIR — warrior-cut, obsidian black with blue sheen -->
+      <!-- Left side (shadow) -->
+      <path d="M88 220 Q95 150 140 110 Q200 75 280 68 Q210 140 180 200 Q150 240 130 320 Z"
+            fill="#0c0818" stroke="none"/>
+      <!-- Right side (lit) -->
+      <path d="M572 215 Q568 145 526 107 Q468 72 382 66 Q445 138 475 200 Q505 242 524 315 Z"
+            fill="#100c20" stroke="none"/>
+      <!-- Hair sheen (blue-black) -->
+      <path d="M100 180 Q160 120 280 68 Q210 140 170 210"
+            fill="none" stroke="rgba(60,60,120,0.4)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M560 175 Q500 118 382 66 Q450 138 490 208"
+            fill="none" stroke="rgba(80,60,40,0.4)" stroke-width="6" stroke-linecap="round"/>
+
+      <!-- WARRIOR HEADBAND — black with jade inlay -->
+      <path d="M88 220 Q140 190 200 182 Q280 175 340 178 Q420 175 500 182 Q545 188 572 215
+               Q568 240 560 245 Q520 235 460 228 Q395 222 340 224 Q280 222 220 228 Q165 234 118 245 Q96 242 88 220 Z"
+            fill="#120c20" stroke="#2a1860" stroke-width="1.5" opacity="0.9"/>
+      <!-- Jade discs on headband -->
+      <circle cx="200" cy="210" r="10" fill="#208040" stroke="#10602a" stroke-width="1.5"/>
+      <circle cx="200" cy="210" r="5"  fill="#30b060" opacity="0.7"/>
+      <circle cx="340" cy="203" r="13" fill="#186030" stroke="#0a4020" stroke-width="2"/>
+      <circle cx="340" cy="203" r="7"  fill="#28a050" opacity="0.8"/>
+      <!-- Tezcatlipoca mirror charm -->
+      <circle cx="340" cy="203" r="3"  fill="#6644aa" opacity="0.9"/>
+      <circle cx="480" cy="208" r="10" fill="#208040" stroke="#10602a" stroke-width="1.5"/>
+      <circle cx="480" cy="208" r="5"  fill="#30b060" opacity="0.7"/>
+
+      <!-- RIM LIGHT — left side cold blue -->
+      <ellipse cx="130" cy="370" rx="80" ry="240" fill="url(#rimLeft)" opacity="0.35"/>
+
+      <!-- ATMOSPHERE — depth haze in corners -->
+      <radialGradient id="cornerDark" cx="0%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="#04020a" stop-opacity="0.95"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <rect x="0" y="0" width="200" height="860" fill="url(#cornerDark)"/>
+
+      <!-- SMOKE WISPS from face (the Smoking Mirror) -->
+      <g filter="url(#softBlur)" opacity="0.35">
+        <path d="M330 180 Q310 120 340 60 Q360 10 320 0" fill="none" stroke="#6644aa" stroke-width="6"/>
+        <path d="M320 175 Q295 115 315 55" fill="none" stroke="#4422aa" stroke-width="4"/>
+        <path d="M345 178 Q370 110 355 50" fill="none" stroke="#8855bb" stroke-width="3"/>
+      </g>
+
+      <!-- OBSIDIAN MIRROR FRAGMENT — near forehead -->
+      <g opacity="0.7" transform="translate(290, 90) rotate(-15)">
+        <polygon points="0,0 45,8 50,45 5,40" fill="#08050f" stroke="#6644aa" stroke-width="1.5"/>
+        <polygon points="0,0 45,8 50,45 5,40" fill="url(#mirrorGlow)" opacity="0.5"/>
+        <!-- Mirror surface reflection -->
+        <line x1="5" y1="8" x2="42" y2="14" stroke="rgba(150,100,220,0.4)" stroke-width="1"/>
+        <line x1="8" y1="20" x2="44" y2="26" stroke="rgba(100,80,180,0.3)" stroke-width="0.5"/>
+      </g>
+
+      <!-- Tear of blood (warrior's mark) -->
+      <path d="M448 385 Q450 400 446 415 Q444 425 448 430" fill="none"
+            stroke="#cc1100" stroke-width="3" opacity="0.7" stroke-linecap="round"/>
+      <ellipse cx="448" cy="432" rx="4" ry="5" fill="#cc1100" opacity="0.7"/>
+
+    </svg>
+
+    <!-- Left panel chiaroscuro overlays -->
+    <div class="face-light"></div>
+    <!-- Hard shadow bar from right edge of face panel -->
+    <div style="position:absolute;right:0;top:0;bottom:0;width:120px;background:linear-gradient(to left,rgba(0,0,0,0.0),rgba(0,0,0,0.85));z-index:5;"></div>
+  </div>
+
+  <!-- RIGHT PANEL: WARRIOR SILHOUETTE -->
+  <div class="panel-right">
+    <div class="body-light"></div>
+
+    <svg class="warrior-svg" viewBox="0 0 460 1080" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="auraGlow" cx="50%" cy="55%" r="50%">
+          <stop offset="0%"  stop-color="#5a5a9a" stop-opacity="0.25"/>
+          <stop offset="60%" stop-color="#2a1060" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <radialGradient id="groundLight" cx="50%" cy="100%" r="50%">
+          <stop offset="0%"  stop-color="#ff2200" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <radialGradient id="armorGrad" cx="40%" cy="30%" r="65%">
+          <stop offset="0%"  stop-color="#2a2050"/>
+          <stop offset="40%" stop-color="#16102a"/>
+          <stop offset="80%" stop-color="#0c0818"/>
+          <stop offset="100%" stop-color="#08060f"/>
+        </radialGradient>
+        <radialGradient id="armorLit" cx="30%" cy="20%" r="70%">
+          <stop offset="0%"  stop-color="#c8800a" stop-opacity="0.4"/>
+          <stop offset="50%" stop-color="#6644aa" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <linearGradient id="weaponGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"  stop-color="#c0c0d8"/>
+          <stop offset="30%" stop-color="#606080"/>
+          <stop offset="60%" stop-color="#1a1a2a"/>
+          <stop offset="100%" stop-color="#060608"/>
+        </linearGradient>
+        <linearGradient id="capeGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"  stop-color="#221a3a"/>
+          <stop offset="50%" stop-color="#0e0c1e"/>
+          <stop offset="100%" stop-color="#060410"/>
+        </linearGradient>
+        <filter id="bodyGlow">
+          <feGaussianBlur stdDeviation="12" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="edgeGlow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+        </filter>
+        <filter id="smokeBlur">
+          <feGaussianBlur stdDeviation="15"/>
+        </filter>
+      </defs>
+
+      <!-- AURA / atmosphere -->
+      <ellipse cx="230" cy="560" rx="220" ry="520" fill="url(#auraGlow)"/>
+
+      <!-- GROUND LIGHT (ember glow beneath feet) -->
+      <ellipse cx="230" cy="1030" rx="160" ry="40" fill="url(#groundLight)" filter="url(#smokeBlur)"/>
+      <ellipse cx="230" cy="1040" rx="120" ry="22" fill="rgba(255,30,0,0.15)" filter="url(#smokeBlur)"/>
+
+      <!-- OBSIDIAN SMOKE trail from body -->
+      <g filter="url(#smokeBlur)" opacity="0.4">
+        <path d="M230 60 Q200 0 215 -30" fill="none" stroke="#6644aa" stroke-width="20"/>
+        <path d="M215 55 Q190 -10 205 -40" fill="none" stroke="#4422aa" stroke-width="14"/>
+        <path d="M248 58 Q268 -5 260 -35" fill="none" stroke="#8855bb" stroke-width="10"/>
+      </g>
+
+      <!-- ── CAPE / CLOAK (behind body) ── -->
+      <path d="M180 180 Q100 280 80 450 Q60 600 90 750 Q110 850 140 920
+               Q165 960 190 970 Q210 975 215 940 Q200 870 195 780 Q185 660 190 540
+               Q195 430 185 330 Q178 260 180 180 Z"
+            fill="url(#capeGrad)" stroke="#2a1860" stroke-width="1" opacity="0.95"/>
+      <!-- Cape highlight edge -->
+      <path d="M180 180 Q175 260 178 330 Q182 430 188 540"
+            fill="none" stroke="rgba(90,90,154,0.3)" stroke-width="2.5"/>
+      <!-- Cape obsidian feather trim -->
+      <g opacity="0.6">
+        <path d="M82 460 Q70 470 82 490 Q100 475 82 460 Z" fill="#2a1060"/>
+        <path d="M76 510 Q63 520 75 542 Q95 527 76 510 Z" fill="#2a1060"/>
+        <path d="M72 562 Q58 573 70 596 Q92 580 72 562 Z" fill="#221050"/>
+        <path d="M73 614 Q60 625 73 648 Q94 632 73 614 Z" fill="#221050"/>
+        <path d="M80 664 Q67 676 80 700 Q101 683 80 664 Z" fill="#1e0e48"/>
+        <path d="M90 712 Q78 724 92 748 Q112 730 90 712 Z" fill="#1e0e48"/>
+      </g>
+
+      <!-- ── LOWER BODY / LEGS ── -->
+      <!-- Left leg (back) -->
+      <path d="M195 720 Q182 800 175 880 Q170 940 180 1010 Q188 1040 200 1042
+               Q214 1043 218 1012 Q220 940 225 870 Q230 800 230 720 Z"
+            fill="url(#armorGrad)" stroke="#3a2870" stroke-width="1.5"/>
+      <!-- Right leg (front, wider stance) -->
+      <path d="M260 720 Q278 800 290 880 Q300 940 292 1010 Q284 1042 270 1043
+               Q256 1042 252 1012 Q248 940 248 870 Q246 800 248 720 Z"
+            fill="url(#armorGrad)" stroke="#3a2870" stroke-width="1.5"/>
+
+      <!-- GREAVES (shin armor) -->
+      <!-- Left greave -->
+      <path d="M172 870 Q165 900 170 950 Q176 975 190 978
+               Q208 975 212 948 Q216 898 210 868 Z"
+            fill="#1a1435" stroke="#5544aa" stroke-width="2"/>
+      <!-- Gold trim -->
+      <path d="M172 872 Q190 868 210 870" fill="none" stroke="#c8800a" stroke-width="2.5"/>
+      <path d="M170 948 Q190 952 212 948" fill="none" stroke="#c8800a" stroke-width="2"/>
+      <!-- Jade inlay -->
+      <ellipse cx="191" cy="910" rx="12" ry="8" fill="#208040" stroke="#10502a" stroke-width="1"/>
+      <ellipse cx="191" cy="910" rx="6"  ry="4" fill="#30b060" opacity="0.7"/>
+
+      <!-- Right greave -->
+      <path d="M248 868 Q244 900 248 950 Q254 975 268 978
+               Q284 975 288 948 Q292 898 286 870 Z"
+            fill="#1a1435" stroke="#5544aa" stroke-width="2"/>
+      <path d="M248 870 Q268 866 288 868" fill="none" stroke="#c8800a" stroke-width="2.5"/>
+      <path d="M248 948 Q268 952 288 948" fill="none" stroke="#c8800a" stroke-width="2"/>
+      <ellipse cx="268" cy="908" rx="12" ry="8" fill="#208040" stroke="#10502a" stroke-width="1"/>
+      <ellipse cx="268" cy="908" rx="6"  ry="4" fill="#30b060" opacity="0.7"/>
+
+      <!-- SANDALS -->
+      <path d="M170 1010 Q166 1028 170 1042 Q185 1050 210 1045 Q222 1035 220 1010 Z"
+            fill="#2a1808" stroke="#c8800a" stroke-width="1.5"/>
+      <path d="M248 1010 Q244 1028 248 1042 Q264 1050 290 1044 Q300 1033 296 1010 Z"
+            fill="#2a1808" stroke="#c8800a" stroke-width="1.5"/>
+      <!-- Sandal straps -->
+      <path d="M170 1016 Q195 1012 220 1016" fill="none" stroke="#c8800a" stroke-width="2"/>
+      <path d="M172 1030 Q195 1026 218 1030" fill="none" stroke="#a06008" stroke-width="1.5"/>
+      <path d="M248 1016 Q271 1012 296 1016" fill="none" stroke="#c8800a" stroke-width="2"/>
+      <path d="M250 1030 Q271 1026 295 1030" fill="none" stroke="#a06008" stroke-width="1.5"/>
+
+      <!-- LOINCLOTH / MAXTLATL (hip cloth) -->
+      <path d="M185 690 Q200 708 230 712 Q260 708 278 690
+               Q268 740 260 775 Q248 800 240 810 Q232 800 222 775 Q214 740 185 690 Z"
+            fill="#1e0e48" stroke="#6644aa" stroke-width="1.5"/>
+      <!-- Gold border trim -->
+      <path d="M185 692 Q212 686 230 690 Q250 686 278 692"
+            fill="none" stroke="#ffd700" stroke-width="2.5"/>
+      <!-- Geometric pattern -->
+      <g stroke="#5544aa" stroke-width="1" opacity="0.6" fill="none">
+        <path d="M210 710 L220 730 L230 710 L240 730 L250 710"/>
+        <path d="M208 730 L230 740 L252 730"/>
+      </g>
+
+      <!-- ── TORSO / CHEST ARMOR ── -->
+      <path d="M185 330 Q170 380 168 440 Q166 510 170 580 Q174 640 185 690
+               Q210 700 230 702 Q252 700 278 690
+               Q290 640 292 580 Q296 510 294 440 Q292 380 278 330
+               Q255 318 230 316 Q205 318 185 330 Z"
+            fill="url(#armorGrad)" stroke="#3a2870" stroke-width="2"/>
+
+      <!-- Chest armor overlay -->
+      <path d="M185 330 Q170 380 168 440 Q166 510 170 580 Q174 640 185 690
+               Q210 700 230 702 Q252 700 278 690
+               Q290 640 292 580 Q296 510 294 440 Q292 380 278 330
+               Q255 318 230 316 Q205 318 185 330 Z"
+            fill="url(#armorLit)" opacity="0.6"/>
+
+      <!-- CHEST PLATE — obsidian scale armor -->
+      <!-- Scales row 1 -->
+      <g fill="#1a1435" stroke="#5544aa" stroke-width="1.2" opacity="0.9">
+        <ellipse cx="200" cy="365" rx="16" ry="10"/>
+        <ellipse cx="220" cy="358" rx="16" ry="10"/>
+        <ellipse cx="240" cy="358" rx="16" ry="10"/>
+        <ellipse cx="260" cy="365" rx="16" ry="10"/>
+        <!-- Row 2 -->
+        <ellipse cx="192" cy="390" rx="16" ry="10"/>
+        <ellipse cx="212" cy="382" rx="16" ry="10"/>
+        <ellipse cx="232" cy="382" rx="16" ry="10"/>
+        <ellipse cx="252" cy="382" rx="16" ry="10"/>
+        <ellipse cx="272" cy="390" rx="16" ry="10"/>
+        <!-- Row 3 -->
+        <ellipse cx="186" cy="415" rx="16" ry="10"/>
+        <ellipse cx="206" cy="407" rx="16" ry="10"/>
+        <ellipse cx="226" cy="407" rx="16" ry="10"/>
+        <ellipse cx="246" cy="407" rx="16" ry="10"/>
+        <ellipse cx="266" cy="407" rx="16" ry="10"/>
+        <ellipse cx="284" cy="415" rx="16" ry="10"/>
+      </g>
+      <!-- Scale highlight (lit side) -->
+      <ellipse cx="212" cy="382" rx="16" ry="10" fill="rgba(200,128,10,0.2)" stroke="#c8800a" stroke-width="1.2"/>
+      <ellipse cx="206" cy="407" rx="16" ry="10" fill="rgba(200,128,10,0.15)" stroke="#c8800a" stroke-width="1"/>
+
+      <!-- CENTER MEDALLION — Smoking Mirror -->
+      <circle cx="230" cy="460" r="38" fill="#08050f" stroke="#6644aa" stroke-width="3"/>
+      <circle cx="230" cy="460" r="30" fill="#0d0a1e" stroke="#4422aa" stroke-width="1.5"/>
+      <!-- Mirror surface -->
+      <circle cx="230" cy="460" r="24" fill="#120c28"/>
+      <g opacity="0.7">
+        <ellipse cx="224" cy="454" rx="10" ry="7" fill="rgba(90,90,154,0.4)" transform="rotate(-20,224,454)"/>
+        <ellipse cx="236" cy="466" rx="8"  ry="5" fill="rgba(50,50,100,0.3)" transform="rotate(15,236,466)"/>
+      </g>
+      <!-- Mirror glint -->
+      <ellipse cx="222" cy="451" rx="5" ry="3" fill="rgba(160,130,220,0.5)" transform="rotate(-30,222,451)"/>
+      <!-- Outer ring: smoke wisps carved -->
+      <circle cx="230" cy="460" r="38" fill="none" stroke="#9966ff" stroke-width="1" opacity="0.4" stroke-dasharray="6 4"/>
+
+      <!-- BELT / HIP GUARD -->
+      <path d="M180 622 Q205 615 230 617 Q258 615 283 622 L285 650 Q260 660 230 662 Q202 660 178 650 Z"
+            fill="#16102a" stroke="#5544aa" stroke-width="2"/>
+      <!-- Belt gold trim -->
+      <path d="M180 622 Q230 614 283 622" fill="none" stroke="#ffd700" stroke-width="3"/>
+      <path d="M178 650 Q230 660 285 650" fill="none" stroke="#c8800a" stroke-width="2"/>
+      <!-- Belt skull ornament -->
+      <ellipse cx="230" cy="636" rx="15" ry="13" fill="#e8d8c0" stroke="#b0a080" stroke-width="1.5"/>
+      <circle cx="225" cy="632" r="3.5" fill="#1a0808"/>
+      <circle cx="235" cy="632" r="3.5" fill="#1a0808"/>
+      <path d="M222 641 Q230 645 238 641" fill="none" stroke="#1a0808" stroke-width="1.5"/>
+
+      <!-- ── PAULDRONS (shoulder armor) ── -->
+      <!-- Left shoulder -->
+      <path d="M160 295 Q138 310 132 340 Q128 368 138 392 Q158 408 178 400
+               Q190 385 190 360 Q192 330 185 305 Z"
+            fill="#1a1435" stroke="#5544aa" stroke-width="2"/>
+      <path d="M160 295 Q140 312 135 340 Q130 368 140 390"
+            fill="none" stroke="rgba(200,128,10,0.45)" stroke-width="3"/>
+      <!-- Shoulder spike -->
+      <path d="M134 345 Q108 330 90 318 Q98 310 118 320 Q134 332 134 345 Z"
+            fill="#1a1435" stroke="#5544aa" stroke-width="1.5"/>
+      <!-- Jade shoulder inlay -->
+      <ellipse cx="158" cy="355" rx="14" ry="10" fill="#208040" stroke="#10502a" stroke-width="1.5"/>
+      <ellipse cx="158" cy="355" rx="7"  ry="5"  fill="#30b060" opacity="0.7"/>
+
+      <!-- Right shoulder -->
+      <path d="M302 295 Q324 310 330 340 Q334 368 324 392 Q304 408 284 400
+               Q272 385 272 360 Q270 330 278 305 Z"
+            fill="#1a1435" stroke="#5544aa" stroke-width="2"/>
+      <path d="M302 295 Q322 312 327 340 Q332 368 322 390"
+            fill="none" stroke="rgba(200,128,10,0.45)" stroke-width="3"/>
+      <!-- Shoulder spike -->
+      <path d="M328 345 Q354 330 372 318 Q364 310 344 320 Q328 332 328 345 Z"
+            fill="#1a1435" stroke="#5544aa" stroke-width="1.5"/>
+      <!-- Jade shoulder inlay -->
+      <ellipse cx="304" cy="355" rx="14" ry="10" fill="#208040" stroke="#10502a" stroke-width="1.5"/>
+      <ellipse cx="304" cy="355" rx="7"  ry="5"  fill="#30b060" opacity="0.7"/>
+
+      <!-- ── ARMS ── -->
+      <!-- Left arm (raised, holding macuahuitl) -->
+      <path d="M174 330 Q148 360 125 400 Q108 435 102 470 Q96 505 108 525
+               Q124 538 140 530 Q158 515 165 480 Q172 448 178 415 Q185 375 184 340 Z"
+            fill="url(#armorGrad)" stroke="#3a2870" stroke-width="1.5"/>
+      <!-- Left arm armor bands -->
+      <path d="M168 358 Q148 368 132 378" fill="none" stroke="#5544aa" stroke-width="4"/>
+      <path d="M158 398 Q138 408 122 418" fill="none" stroke="#5544aa" stroke-width="4"/>
+      <path d="M148 438 Q130 446 116 454" fill="none" stroke="#5544aa" stroke-width="3"/>
+      <!-- Arm highlight -->
+      <path d="M180 338 Q175 370 172 420" fill="none" stroke="rgba(200,128,10,0.3)" stroke-width="3"/>
+
+      <!-- Right arm (extended outward in combat stance) -->
+      <path d="M280 330 Q305 355 330 388 Q355 425 372 462 Q384 492 378 515
+               Q362 532 346 524 Q326 508 318 473 Q310 442 302 408 Q292 370 283 340 Z"
+            fill="url(#armorGrad)" stroke="#3a2870" stroke-width="1.5"/>
+      <!-- Right arm armor bands -->
+      <path d="M285 360 Q308 370 326 382" fill="none" stroke="#5544aa" stroke-width="4"/>
+      <path d="M298 400 Q320 412 338 424" fill="none" stroke="#5544aa" stroke-width="4"/>
+      <path d="M308 440 Q328 450 344 460" fill="none" stroke="#5544aa" stroke-width="3"/>
+
+      <!-- ── MACUAHUITL (obsidian-bladed war club) ── -->
+      <!-- Handle wrapped in leather -->
+      <rect x="86" y="478" width="28" height="120" rx="6" fill="#2a1808"
+            stroke="#c8800a" stroke-width="2" transform="rotate(-15, 100, 540)"/>
+      <!-- Handle wrap pattern -->
+      <g stroke="#a06008" stroke-width="2" opacity="0.6" transform="rotate(-15, 100, 540)">
+        <line x1="86" y1="500" x2="114" y2="500"/>
+        <line x1="86" y1="514" x2="114" y2="514"/>
+        <line x1="86" y1="528" x2="114" y2="528"/>
+        <line x1="86" y1="542" x2="114" y2="542"/>
+        <line x1="86" y1="556" x2="114" y2="556"/>
+      </g>
+      <!-- Macuahuitl blade body (wooden) -->
+      <rect x="78" y="300" width="38" height="205" rx="5" fill="#3a2010"
+            stroke="#1e1008" stroke-width="2" transform="rotate(-15, 100, 400)"/>
+      <!-- OBSIDIAN BLADES embedded in club — left side -->
+      <g fill="url(#weaponGrad)" transform="rotate(-15, 100, 400)">
+        <polygon points="78,305  62,312  60,326  78,322"/>
+        <polygon points="78,330  60,337  58,351  78,347"/>
+        <polygon points="78,355  60,362  58,376  78,372"/>
+        <polygon points="78,380  60,387  58,401  78,397"/>
+        <polygon points="78,405  60,412  58,426  78,422"/>
+        <polygon points="78,430  62,437  60,451  78,447"/>
+        <polygon points="78,455  62,462  60,476  78,472"/>
+        <polygon points="78,480  62,487  60,498  78,496"/>
+      </g>
+      <!-- Obsidian blades — right side -->
+      <g fill="url(#weaponGrad)" transform="rotate(-15, 100, 400)">
+        <polygon points="116,305 132,312 134,326 116,322"/>
+        <polygon points="116,330 134,337 136,351 116,347"/>
+        <polygon points="116,355 134,362 136,376 116,372"/>
+        <polygon points="116,380 134,387 136,401 116,397"/>
+        <polygon points="116,405 134,412 136,426 116,422"/>
+        <polygon points="116,430 132,437 134,451 116,447"/>
+        <polygon points="116,455 132,462 134,476 116,472"/>
+        <polygon points="116,480 132,487 134,498 116,496"/>
+      </g>
+      <!-- Obsidian glint -->
+      <g fill="rgba(180,180,220,0.5)" transform="rotate(-15, 100, 400)">
+        <polygon points="78,308  70,315  68,322  78,318"/>
+        <polygon points="78,355  68,362  66,370  78,366"/>
+        <polygon points="78,402  68,409  66,418  78,413"/>
+        <polygon points="78,450  68,456  66,464  78,460"/>
+        <polygon points="116,310 124,317 126,325 116,320"/>
+        <polygon points="116,358 126,365 128,372 116,368"/>
+      </g>
+      <!-- Blood stain on blade -->
+      <g opacity="0.5" transform="rotate(-15, 100, 400)">
+        <ellipse cx="68" cy="362" rx="6" ry="3" fill="#cc1100"/>
+        <path d="M66 366 Q64 374 67 380" fill="none" stroke="#aa0e00" stroke-width="2"/>
+      </g>
+
+      <!-- ── CHIMALLI (round shield) ── -->
+      <!-- Right hand holding shield (extended combat stance) -->
+      <circle cx="375" cy="510" r="65" fill="#1a1030" stroke="#6644aa" stroke-width="3"/>
+      <circle cx="375" cy="510" r="58" fill="#120c28" stroke="#3322aa" stroke-width="1.5"/>
+      <!-- Shield concentric rings -->
+      <circle cx="375" cy="510" r="48" fill="none" stroke="#c8800a" stroke-width="2.5"/>
+      <circle cx="375" cy="510" r="36" fill="none" stroke="#a06008" stroke-width="2"/>
+      <circle cx="375" cy="510" r="24" fill="none" stroke="#c8800a" stroke-width="2"/>
+      <!-- Shield center emblem: Tezcatlipoca's smoking mirror -->
+      <circle cx="375" cy="510" r="18" fill="#08050f" stroke="#9966ff" stroke-width="2"/>
+      <circle cx="375" cy="510" r="13" fill="#0d0a1e"/>
+      <!-- Feather trim around shield edge -->
+      <g fill="#2a1060" stroke="#4422aa" stroke-width="1">
+        <path d="M375 443 Q368 425 375 415 Q382 425 375 443 Z"/>
+        <path d="M405 452 Q418 438 427 443 Q418 455 405 452 Z"/>
+        <path d="M423 480 Q440 472 447 480 Q440 490 423 480 Z"/>
+        <path d="M427 510 Q445 510 447 520 Q440 526 427 510 Z"/>
+        <path d="M420 540 Q436 548 432 558 Q424 556 420 540 Z"/>
+        <path d="M405 566 Q416 578 410 586 Q403 580 405 566 Z"/>
+        <path d="M375 577 Q372 594 363 596 Q362 587 375 577 Z"/>
+        <path d="M345 566 Q334 578 340 586 Q347 580 345 566 Z"/>
+        <path d="M328 540 Q314 548 318 558 Q326 556 328 540 Z"/>
+        <path d="M323 510 Q305 510 303 520 Q310 526 323 510 Z"/>
+        <path d="M327 480 Q310 472 303 480 Q310 490 327 480 Z"/>
+        <path d="M345 452 Q332 438 323 443 Q332 455 345 452 Z"/>
+      </g>
+
+      <!-- ── HEAD ── -->
+      <!-- Headdress base (elaborate war bonnet) -->
+      <!-- Back feathers (quetzal plumes) -->
+      <g opacity="0.85">
+        <!-- Long quetzal feathers -->
+        <path d="M230 85 Q215 20 220 -40 Q228 -65 230 -55 Q232 -65 240 -40 Q245 20 230 85 Z"
+              fill="#0c4018" stroke="#208040" stroke-width="1"/>
+        <path d="M208 92 Q188 28 192 -32 Q197 -58 204 -48 Q202 -60 210 -38 Q218 18 208 92 Z"
+              fill="#0c4018" stroke="#208040" stroke-width="1"/>
+        <path d="M252 92 Q272 28 268 -32 Q263 -58 256 -48 Q258 -60 250 -38 Q242 18 252 92 Z"
+              fill="#0c4018" stroke="#208040" stroke-width="1"/>
+        <!-- Feather tips — golden -->
+        <ellipse cx="230" cy="-50" rx="8" ry="14" fill="#ffd700" opacity="0.7"/>
+        <ellipse cx="204" cy="-44" rx="7" ry="12" fill="#ffd700" opacity="0.6"/>
+        <ellipse cx="256" cy="-44" rx="7" ry="12" fill="#ffd700" opacity="0.6"/>
+        <!-- Side feathers -->
+        <path d="M185 108 Q160 55 165 10 Q170 -18 178 -10 Q175 -20 184 2 Q192 45 185 108 Z"
+              fill="#0c4018" stroke="#208040" stroke-width="1"/>
+        <path d="M275 108 Q300 55 295 10 Q290 -18 282 -10 Q285 -20 276 2 Q268 45 275 108 Z"
+              fill="#0c4018" stroke="#208040" stroke-width="1"/>
+      </g>
+
+      <!-- Headdress frame (warrior helmet band) -->
+      <path d="M170 128 Q170 95 200 82 Q215 76 230 75 Q246 76 262 82 Q292 95 292 128
+               Q292 145 285 155 Q268 165 230 168 Q193 165 177 155 Q170 145 170 128 Z"
+            fill="#120c28" stroke="#5544aa" stroke-width="2.5"/>
+      <!-- Gold rim -->
+      <path d="M170 130 Q200 114 230 112 Q262 114 292 130"
+            fill="none" stroke="#ffd700" stroke-width="3"/>
+      <!-- Front crest: obsidian skull -->
+      <ellipse cx="230" cy="105" rx="18" ry="16" fill="#e0d0b8" stroke="#b0a080" stroke-width="1.5"/>
+      <circle cx="224" cy="102" r="4" fill="#0c0408"/>
+      <circle cx="236" cy="102" r="4" fill="#0c0408"/>
+      <path d="M220 113 Q230 118 240 113" fill="none" stroke="#0c0408" stroke-width="1.5"/>
+      <!-- Turquoise inlay on helmet -->
+      <circle cx="190" cy="128" r="7" fill="#20a888" stroke="#108058" stroke-width="1"/>
+      <circle cx="270" cy="128" r="7" fill="#20a888" stroke="#108058" stroke-width="1"/>
+
+      <!-- Face (simplified for distance) -->
+      <!-- Head shape -->
+      <ellipse cx="230" cy="200" rx="54" ry="60" fill="#6a3218" stroke="#3a1808" stroke-width="1.5"/>
+      <!-- Dark eye band (Tezcatlipoca's marking) -->
+      <rect x="178" y="188" width="104" height="22" rx="5" fill="#05020e" opacity="0.9"/>
+      <!-- Eyes glow (ember points) -->
+      <ellipse cx="210" cy="198" rx="8" ry="5" fill="#ff2200"/>
+      <ellipse cx="250" cy="198" rx="8" ry="5" fill="#ff2200"/>
+      <!-- Smoke wisps from eyes (at distance) -->
+      <g filter="url(#smokeBlur)" opacity="0.3">
+        <circle cx="210" cy="188" r="8" fill="#6644aa"/>
+        <circle cx="250" cy="188" r="8" fill="#6644aa"/>
+      </g>
+
+      <!-- BODY GLOW OVERLAY — aura of shadow power -->
+      <g filter="url(#bodyGlow)" opacity="0.3">
+        <path d="M185 330 Q168 450 168 560 Q170 640 185 690 Q230 702 278 690
+                 Q292 640 294 560 Q296 450 278 330 Q255 318 230 316 Q205 318 185 330 Z"
+              fill="#6644aa"/>
+      </g>
+
+    </svg>
+
+    <!-- Right panel corner shadow -->
+    <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(to right,rgba(0,0,0,0.4),transparent);z-index:5;"></div>
+    <div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to left,rgba(0,0,0,0.9),transparent);z-index:5;"></div>
+  </div>
+
+  <!-- SPLIT LINE -->
+  <div class="split-glow"></div>
+  <div class="split-line"></div>
+
+  <!-- GROUND MIST -->
+  <div class="ground-mist"></div>
+
+  <!-- AZTEC BORDER ORNAMENTS -->
+  <svg class="border-frame" viewBox="0 0 1200 1600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="borderGold" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"   stop-color="transparent"/>
+        <stop offset="20%"  stop-color="rgba(200,128,10,0.5)"/>
+        <stop offset="50%"  stop-color="rgba(255,215,0,0.8)"/>
+        <stop offset="80%"  stop-color="rgba(200,128,10,0.5)"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </linearGradient>
+      <linearGradient id="borderGoldV" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%"   stop-color="transparent"/>
+        <stop offset="20%"  stop-color="rgba(200,128,10,0.4)"/>
+        <stop offset="50%"  stop-color="rgba(255,215,0,0.6)"/>
+        <stop offset="80%"  stop-color="rgba(200,128,10,0.4)"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Top border -->
+    <rect x="0" y="0" width="1200" height="6" fill="url(#borderGold)"/>
+    <rect x="0" y="10" width="1200" height="2" fill="url(#borderGold)" opacity="0.4"/>
+    <!-- Bottom border -->
+    <rect x="0" y="1594" width="1200" height="6" fill="url(#borderGold)"/>
+    <rect x="0" y="1588" width="1200" height="2" fill="url(#borderGold)" opacity="0.4"/>
+    <!-- Left border -->
+    <rect x="0" y="0" width="6" height="1600" fill="url(#borderGoldV)"/>
+    <rect x="10" y="0" width="2" height="1600" fill="url(#borderGoldV)" opacity="0.4"/>
+    <!-- Right border -->
+    <rect x="1194" y="0" width="6" height="1600" fill="url(#borderGoldV)"/>
+    <rect x="1188" y="0" width="2" height="1600" fill="url(#borderGoldV)" opacity="0.4"/>
+
+    <!-- CORNER ORNAMENTS — Aztec step-fret (xicalcoliuhqui) -->
+    <!-- Top-left -->
+    <g stroke="rgba(200,128,10,0.6)" stroke-width="2" fill="none">
+      <path d="M8 8 L60 8 L60 20 L20 20 L20 60 L8 60 Z"/>
+      <path d="M14 14 L52 14 L52 26 L26 26 L26 52 L14 52 Z"/>
+      <rect x="30" y="30" width="16" height="16" fill="rgba(200,128,10,0.2)"/>
+    </g>
+    <!-- Top-right -->
+    <g stroke="rgba(200,128,10,0.6)" stroke-width="2" fill="none">
+      <path d="M1192 8 L1140 8 L1140 20 L1180 20 L1180 60 L1192 60 Z"/>
+      <path d="M1186 14 L1148 14 L1148 26 L1174 26 L1174 52 L1186 52 Z"/>
+      <rect x="1154" y="30" width="16" height="16" fill="rgba(200,128,10,0.2)"/>
+    </g>
+    <!-- Bottom-left -->
+    <g stroke="rgba(200,128,10,0.6)" stroke-width="2" fill="none">
+      <path d="M8 1592 L60 1592 L60 1580 L20 1580 L20 1540 L8 1540 Z"/>
+      <path d="M14 1586 L52 1586 L52 1574 L26 1574 L26 1548 L14 1548 Z"/>
+      <rect x="30" y="1554" width="16" height="16" fill="rgba(200,128,10,0.2)"/>
+    </g>
+    <!-- Bottom-right -->
+    <g stroke="rgba(200,128,10,0.6)" stroke-width="2" fill="none">
+      <path d="M1192 1592 L1140 1592 L1140 1580 L1180 1580 L1180 1540 L1192 1540 Z"/>
+      <path d="M1186 1586 L1148 1586 L1148 1574 L1174 1574 L1174 1548 L1186 1548 Z"/>
+      <rect x="1154" y="1554" width="16" height="16" fill="rgba(200,128,10,0.2)"/>
+    </g>
+
+    <!-- SIDE ORNAMENTS (mid-height) -->
+    <!-- Left mid -->
+    <g stroke="rgba(90,90,154,0.5)" stroke-width="1.5" fill="none" transform="translate(8, 776)">
+      <rect x="0" y="-24" width="20" height="48"/>
+      <rect x="4" y="-20" width="12" height="40"/>
+      <rect x="8" y="-16" width="4"  height="32" fill="rgba(90,90,154,0.15)"/>
+    </g>
+    <!-- Right mid -->
+    <g stroke="rgba(90,90,154,0.5)" stroke-width="1.5" fill="none" transform="translate(1172, 776)">
+      <rect x="0" y="-24" width="20" height="48"/>
+      <rect x="4" y="-20" width="12" height="40"/>
+      <rect x="8" y="-16" width="4"  height="32" fill="rgba(90,90,154,0.15)"/>
+    </g>
+
+    <!-- SUBTLE SMOKE MIRROR WATERMARKS (background texture) -->
+    <circle cx="300" cy="400" r="180" fill="none" stroke="rgba(100,68,170,0.04)" stroke-width="3"/>
+    <circle cx="300" cy="400" r="140" fill="none" stroke="rgba(100,68,170,0.03)" stroke-width="2"/>
+    <circle cx="300" cy="400" r="100" fill="none" stroke="rgba(100,68,170,0.03)" stroke-width="1.5"/>
+    <circle cx="900" cy="400" r="180" fill="none" stroke="rgba(200,128,10,0.03)" stroke-width="3"/>
+    <circle cx="900" cy="400" r="140" fill="none" stroke="rgba(200,128,10,0.025)" stroke-width="2"/>
+  </svg>
+
+  <!-- TEXT -->
+  <div class="text-layer">
+    <div class="studio-tag">Pixel Agents Studio &nbsp;·&nbsp; Presents</div>
+
+    <div class="name-left">
+      <div class="char-role">The Smoking Mirror</div>
+      <div class="char-name">Tezcatlipoca</div>
+      <div class="char-title">Trickster God · Agile · Elusive</div>
+    </div>
+
+    <div class="name-right">
+      <div class="char-role">Combat Incarnate</div>
+      <div class="char-name">Tezcatlipoca</div>
+      <div class="char-title">17 Gods · One Obsidian Warrior</div>
+    </div>
+
+    <div class="title-block">
+      <div class="title-sub">War of the</div>
+      <span class="title-main">GODS</span>
+      <div class="title-location">Tenochtitlan &nbsp;·&nbsp; The Digital Descent</div>
+      <div class="divider-ornament"></div>
+      <div class="tagline">"The battle begins before the first sword is swung."</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <div class="rating-block">
+      <div class="rating-box">M</div>
+      <div class="rating-text">Mature 17+</div>
+    </div>
+
+    <div class="platform-icons">
+      <div class="platform-pill">Browser</div>
+      <div class="platform-pill">Mobile</div>
+      <div class="platform-pill">Desktop</div>
+    </div>
+
+    <div class="release-info">
+      <div class="release-date">2025</div>
+      <div class="release-label">Available Now</div>
+    </div>
+  </div>
+
+  <!-- VIGNETTE + SCANLINES -->
+  <div class="vignette"></div>
+  <div class="scanlines"></div>
+</div>
+
+<script>
+// Add subtle canvas noise for grain texture
+const poster = document.querySelector('.poster');
+const noiseCanvas = document.createElement('canvas');
+noiseCanvas.style.cssText = 'position:absolute;inset:0;z-index:37;pointer-events:none;opacity:0.035;mix-blend-mode:screen;';
+noiseCanvas.width = 1200;
+noiseCanvas.height = 1600;
+poster.appendChild(noiseCanvas);
+
+const nc = noiseCanvas.getContext('2d');
+const img = nc.createImageData(1200, 1600);
+const d = img.data;
+for (let i = 0; i < d.length; i += 4) {
+  const v = Math.random() * 255;
+  d[i] = d[i+1] = d[i+2] = v;
+  d[i+3] = 255;
+}
+nc.putImageData(img, 0, 0);
+</script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>War of the Gods — Trailer</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+#wrap{position:relative;width:800px;max-width:100vw}
+canvas{display:block;width:100%;image-rendering:pixelated}
+#overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.92);cursor:pointer;user-select:none}
+#overlay h1{color:#cc88ff;font:bold 28px monospace;letter-spacing:6px;text-align:center;margin-bottom:12px}
+#overlay p{color:#7755aa;font:14px monospace;letter-spacing:2px}
+#overlay .sub{color:#4a3366;font:11px monospace;margin-top:20px;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+</style>
+</head>
+<body>
+<div id="wrap">
+<canvas id="c" width="800" height="480"></canvas>
+<div id="overlay">
+  <h1>WAR OF THE GODS</h1>
+  <p>TENOCHTITLAN</p>
+  <div class="sub">TAP / CLICK TO BEGIN</div>
+</div>
+</div>
+<script>'use strict';
+const W=800,H=480;
+const c=document.getElementById('c');
+const cx=c.getContext('2d');
+const overlay=document.getElementById('overlay');
+
+let ac=null,masterG=null,reverbNode=null,reverbSend=null;
+let started=false,t=0,act=0;
+let rain=[],lightning=null,lightFlash=0;
+let titleChars=[],titleDone=false,tagChars=[],tagDone=false;
+let combatIdx=0,combatTimer=0;
+let mirrorAngle=0,mirrorParticles=[];
+
+// ── Audio ─────────────────────────────────────────────────────────────────
+function initAudio(){
+  ac=new(window.AudioContext||window.webkitAudioContext)();
+  masterG=ac.createGain(); masterG.gain.value=0.7; masterG.connect(ac.destination);
+  buildReverb();
+}
+
+function buildReverb(){
+  const len=Math.floor(ac.sampleRate*2.2);
+  const buf=ac.createBuffer(2,len,ac.sampleRate);
+  for(let ch=0;ch<2;ch++){
+    const d=buf.getChannelData(ch);
+    for(let i=0;i<len;i++){
+      const dec=Math.pow(1-i/len,2.2);
+      d[i]=(Math.random()*2-1)*dec*(i<ac.sampleRate*0.05?0.9:0.3);
+    }
+  }
+  reverbNode=ac.createConvolver(); reverbNode.buffer=buf;
+  reverbSend=ac.createGain(); reverbSend.gain.value=0.22;
+  reverbNode.connect(reverbSend); reverbSend.connect(masterG);
+}
+
+function sendRev(g){ if(reverbNode) g.connect(reverbNode); }
+
+function note(freq,start,dur,vol=0.12,type='sine'){
+  const o=ac.createOscillator(),g=ac.createGain();
+  o.type=type; o.frequency.value=freq;
+  g.gain.setValueAtTime(0,start);
+  g.gain.linearRampToValueAtTime(vol,start+0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001,start+dur);
+  o.connect(g); g.connect(masterG); sendRev(g);
+  o.start(start); o.stop(start+dur+0.05);
+}
+
+function boom(start,vol=0.35){
+  const len=Math.floor(ac.sampleRate*1.2);
+  const buf=ac.createBuffer(1,len,ac.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,1.8);
+  const src=ac.createBufferSource(),g=ac.createGain(),filt=ac.createBiquadFilter();
+  src.buffer=buf; filt.type='lowpass'; filt.frequency.value=180;
+  g.gain.setValueAtTime(vol,start); g.gain.exponentialRampToValueAtTime(0.0001,start+1.2);
+  src.connect(filt); filt.connect(g); g.connect(masterG); sendRev(g);
+  src.start(start); src.stop(start+1.3);
+}
+
+function thunder(start){
+  const len=Math.floor(ac.sampleRate*0.9);
+  const buf=ac.createBuffer(1,len,ac.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,0.7)*(1+Math.sin(i/50)*0.4);
+  const src=ac.createBufferSource(),g=ac.createGain(),filt=ac.createBiquadFilter();
+  src.buffer=buf; filt.type='bandpass'; filt.frequency.value=400; filt.Q.value=0.4;
+  g.gain.setValueAtTime(0.5,start); g.gain.exponentialRampToValueAtTime(0.0001,start+0.9);
+  src.connect(filt); filt.connect(g); g.connect(masterG); sendRev(g);
+  src.start(start);
+}
+
+function playScore(){
+  const now=ac.currentTime+0.1;
+  // Act 0: soft gathering drone, D minor
+  note(73.42,now,8,0.07,'sine');
+  note(110,now,8,0.05,'sine');
+  note(146.83,now+2,4,0.06,'triangle');
+  note(220,now+4,3,0.05,'sine');
+  // Act 1: circle — slow melodic line
+  const mel=[146.83,174.61,196,220,261.63,220,196,174.61];
+  mel.forEach((f,i)=>note(f,now+8+i*0.7,0.9,0.09,'triangle'));
+  // Act 2: storm — tension, dissonance
+  boom(now+13.5,0.4); boom(now+14.1,0.3); boom(now+14.8,0.5);
+  thunder(now+13.6); thunder(now+14.3);
+  note(73.42,now+13,4,0.12,'sawtooth');
+  note(155.56,now+13.5,3,0.07,'sawtooth');
+  note(233.08,now+14,2.5,0.06,'square');
+  // Act 3: combat — staccato hits
+  [0,0.48,0.96,1.44,1.92,2.4].forEach((dt,i)=>{
+    const pitches=[196,220,261.63,293.66,220,174.61];
+    note(pitches[i%pitches.length],now+18+dt,0.35,0.11,'square');
+    boom(now+18+dt*1.1,0.18);
+  });
+  // Act 4: finale obsidian — deep, resonant
+  note(73.42,now+22,6,0.14,'sine');
+  note(110,now+22.5,5.5,0.1,'sine');
+  note(146.83,now+23,5,0.08,'triangle');
+  note(196,now+23.5,3,0.07,'triangle');
+  boom(now+22,0.25); boom(now+24,0.22);
+  // Act 5: title reveal — triumphant
+  const titleMel=[261.63,293.66,349.23,392,440,392,440,523.25];
+  titleMel.forEach((f,i)=>note(f,now+28+i*0.5,0.7,0.1,'triangle'));
+  note(130.81,now+28,4,0.12,'sine');
+  note(196,now+28,4,0.09,'sine');
+}
+
+// ── Rain ──────────────────────────────────────────────────────────────────
+function initRain(){
+  rain=[];
+  for(let i=0;i<220;i++) rain.push({
+    x:Math.random()*W, y:Math.random()*H,
+    vy:8+Math.random()*6, vx:-1-Math.random()*1.5,
+    len:10+Math.random()*18, alpha:0.3+Math.random()*0.4
+  });
+}
+
+function updateRain(dt){
+  rain.forEach(r=>{
+    r.x+=r.vx*dt*60; r.y+=r.vy*dt*60;
+    if(r.y>H){ r.y=-20; r.x=Math.random()*W; }
+  });
+}
+
+function drawRain(alpha=1){
+  cx.save(); cx.globalAlpha=alpha*0.7;
+  cx.strokeStyle='#88ccff'; cx.lineWidth=0.8;
+  rain.forEach(r=>{
+    cx.globalAlpha=r.alpha*alpha;
+    cx.beginPath();
+    cx.moveTo(r.x,r.y);
+    cx.lineTo(r.x+r.vx*r.len*0.08,r.y+r.vy*r.len*0.08);
+    cx.stroke();
+  });
+  cx.restore();
+}
+
+// ── Lightning ─────────────────────────────────────────────────────────────
+function triggerLightning(){
+  const sx=100+Math.random()*(W-200);
+  const segs=[];
+  let x=sx,y=42;
+  while(y<H-42){
+    x+=(-30+Math.random()*60); y+=20+Math.random()*30;
+    segs.push({x,y});
+  }
+  lightning={segs,alpha:1,sx};
+  lightFlash=1;
+  if(ac) thunder(ac.currentTime);
+}
+
+function drawLightning(){
+  if(!lightning) return;
+  cx.save();
+  cx.strokeStyle=`rgba(200,230,255,${lightning.alpha})`;
+  cx.lineWidth=2; cx.shadowColor='#aaddff'; cx.shadowBlur=12;
+  cx.beginPath(); cx.moveTo(lightning.sx,42);
+  lightning.segs.forEach(s=>cx.lineTo(s.x,s.y));
+  cx.stroke();
+  cx.lineWidth=0.8; cx.strokeStyle=`rgba(255,255,255,${lightning.alpha*0.5})`;
+  cx.stroke();
+  cx.restore();
+  lightning.alpha-=0.04;
+  if(lightning.alpha<=0) lightning=null;
+}
+
+// ── God silhouettes ───────────────────────────────────────────────────────
+const GODS=[
+  {name:'QUETZALCOATL', color:'#00ffcc', glow:'#00ccaa'},
+  {name:'TEZCATLIPOCA', color:'#aa44ff', glow:'#7722cc'},
+  {name:'HUITZILOPOCHTLI',color:'#ff6600',glow:'#cc4400'},
+  {name:'TLALOC',       color:'#4488ff', glow:'#2255cc'},
+  {name:'COATLICUE',    color:'#ff88cc', glow:'#cc5599'},
+  {name:'XIPE TOTEC',   color:'#88ff44', glow:'#55cc22'},
+  {name:'QUIAHUITL',    color:'#ffcc00', glow:'#cc9900'},
+  {name:'MICTLANTECUHTLI',color:'#bbbbbb',glow:'#888888'},
+  {name:'XOCHIQUETZAL', color:'#ff44aa', glow:'#cc1177'},
+];
+
+function drawGodSilhouette(gx,gy,scale,colorHex,glowHex,flip=false){
+  cx.save();
+  cx.translate(gx,gy);
+  if(flip) cx.scale(-1,1);
+  cx.scale(scale,scale);
+  cx.shadowColor=glowHex; cx.shadowBlur=18;
+  cx.fillStyle=colorHex;
+  // body
+  cx.fillRect(-6,-32,12,20);
+  // head
+  cx.beginPath(); cx.arc(0,-38,9,0,Math.PI*2); cx.fill();
+  // headdress
+  cx.beginPath();
+  cx.moveTo(-12,-46); cx.lineTo(0,-62); cx.lineTo(12,-46);
+  cx.closePath(); cx.fill();
+  cx.fillRect(-14,-50,4,8); cx.fillRect(10,-50,4,8);
+  // arms
+  cx.fillRect(-16,-30,10,4); cx.fillRect(6,-30,10,4);
+  // legs
+  cx.fillRect(-7,-12,5,16); cx.fillRect(2,-12,5,16);
+  cx.restore();
+}
+
+function drawAllGods(phase){
+  const positions=[
+    [W/2,H-100,1.1],
+    [W/2-90,H-90,1.0],
+    [W/2+90,H-90,1.0],
+    [W/2-180,H-80,0.9],
+    [W/2+180,H-80,0.9],
+    [W/2-260,H-75,0.85],
+    [W/2+260,H-75,0.85],
+    [80,H-70,0.8],
+    [W-80,H-70,0.8],
+  ];
+  positions.forEach(([gx,gy,sc],i)=>{
+    const g=GODS[i];
+    const alpha=Math.min(1,phase*(i===0?1:0.7+i*0.03));
+    cx.globalAlpha=alpha;
+    drawGodSilhouette(gx,gy,sc,g.color,g.glow,gx>W/2);
+    cx.globalAlpha=1;
+  });
+}
+
+// ── Combat shots ──────────────────────────────────────────────────────────
+const COMBAT_SHOTS=[
+  {a:0,b:2,label:'QUETZALCOATL vs HUITZILOPOCHTLI'},
+  {a:3,b:7,label:'TLALOC vs MICTLANTECUHTLI'},
+  {a:1,b:4,label:'TEZCATLIPOCA vs COATLICUE'},
+  {a:5,b:8,label:'XIPE TOTEC vs XOCHIQUETZAL'},
+  {a:6,b:3,label:'QUIAHUITL vs TLALOC'},
+];
+
+function drawCombatShot(idx,phase){
+  const shot=COMBAT_SHOTS[idx%COMBAT_SHOTS.length];
+  const ga=GODS[shot.a], gb=GODS[shot.b];
+  // clash flash
+  if(phase>0.3&&phase<0.7){
+    const fi=(phase-0.3)/0.4;
+    cx.save();
+    const rg=cx.createRadialGradient(W/2,H/2,10,W/2,H/2,120);
+    rg.addColorStop(0,`rgba(255,255,200,${fi*0.7})`);
+    rg.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=rg; cx.fillRect(0,0,W,H);
+    cx.restore();
+  }
+  cx.globalAlpha=Math.min(1,phase*3);
+  drawGodSilhouette(W/2-100,H-80,2.2,ga.color,ga.glow,false);
+  drawGodSilhouette(W/2+100,H-80,2.2,gb.color,gb.glow,true);
+  cx.globalAlpha=1;
+  // label
+  cx.fillStyle='rgba(0,0,0,0.6)';
+  cx.fillRect(W/2-160,H-50,320,22);
+  cx.fillStyle='#ffffff'; cx.font='bold 11px monospace';
+  cx.textAlign='center'; cx.fillText(shot.label,W/2,H-35);
+}
+
+// ── Obsidian mirror ───────────────────────────────────────────────────────
+function drawObsidianMirror(mx,my,radius,ang){
+  cx.save(); cx.translate(mx,my); cx.rotate(ang);
+  // mirror frame
+  const fg=cx.createRadialGradient(0,0,radius*0.6,0,0,radius);
+  fg.addColorStop(0,'rgba(80,0,120,0.9)');
+  fg.addColorStop(0.7,'rgba(20,0,40,0.95)');
+  fg.addColorStop(1,'rgba(100,0,180,0.3)');
+  cx.fillStyle=fg;
+  cx.beginPath(); cx.arc(0,0,radius,0,Math.PI*2); cx.fill();
+  // inner glow
+  cx.strokeStyle='rgba(160,80,255,0.7)';
+  cx.lineWidth=3; cx.shadowColor='#aa44ff'; cx.shadowBlur=15;
+  cx.beginPath(); cx.arc(0,0,radius*0.85,0,Math.PI*2); cx.stroke();
+  // mini battle inside
+  cx.clip(); // clip to circle already drawn? No, need to re-clip
+  cx.restore();
+
+  // mini gods inside mirror
+  cx.save(); cx.translate(mx,my);
+  cx.beginPath(); cx.arc(0,0,radius*0.8,0,Math.PI*2); cx.clip();
+  cx.fillStyle='rgba(10,0,20,0.85)'; cx.fillRect(-radius,-radius,radius*2,radius*2);
+  const sc=0.55;
+  drawGodSilhouette(-radius*0.35,radius*0.5,sc,GODS[1].color,GODS[1].glow,false);
+  drawGodSilhouette(radius*0.35,radius*0.5,sc,GODS[0].color,GODS[0].glow,true);
+  cx.restore();
+
+  // frame overlay
+  cx.save(); cx.translate(mx,my); cx.rotate(ang);
+  for(let i=0;i<8;i++){
+    const a=i*Math.PI/4;
+    cx.strokeStyle='rgba(160,80,255,0.4)';
+    cx.lineWidth=1;
+    cx.beginPath();
+    cx.moveTo(Math.cos(a)*radius*0.85,Math.sin(a)*radius*0.85);
+    cx.lineTo(Math.cos(a)*radius,Math.sin(a)*radius);
+    cx.stroke();
+  }
+  cx.restore();
+}
+
+// ── Digital FX ────────────────────────────────────────────────────────────
+function drawFX(intensity=1){
+  // scanlines
+  cx.fillStyle='rgba(0,0,0,0.04)';
+  for(let y=42;y<H-42;y+=3) cx.fillRect(0,y,W,1);
+  // pixel noise
+  const nc=8+Math.floor(Math.abs(Math.sin(t*0.003))*12);
+  for(let n=0;n<nc*intensity;n++){
+    const nx=Math.floor(Math.random()*W),ny=Math.floor(42+Math.random()*(H-84));
+    const hue=[270,200,50,310][n%4];
+    cx.fillStyle=`hsla(${hue},100%,78%,${(0.2+Math.random()*0.3).toFixed(2)})`;
+    cx.fillRect(nx,ny,1,1);
+  }
+  // chromatic edge
+  cx.fillStyle='rgba(255,20,40,0.04)';
+  cx.fillRect(0,0,3,H); cx.fillRect(0,0,W,1);
+  cx.fillStyle='rgba(20,60,255,0.04)';
+  cx.fillRect(W-3,0,3,H); cx.fillRect(0,H-1,W,1);
+  // vignette
+  const vg=cx.createRadialGradient(W/2,H/2,H*0.28,W/2,H/2,H*0.75);
+  vg.addColorStop(0,'rgba(0,0,0,0)');
+  vg.addColorStop(1,'rgba(10,0,22,0.55)');
+  cx.fillStyle=vg; cx.fillRect(0,0,W,H);
+}
+
+// ── Letterbox ─────────────────────────────────────────────────────────────
+function drawLetterbox(){
+  cx.fillStyle='#000';
+  cx.fillRect(0,0,W,42);
+  cx.fillRect(0,H-42,W,42);
+}
+
+// ── Title reveal ──────────────────────────────────────────────────────────
+function initTitle(){
+  titleChars=[...'WAR OF THE GODS'].map((ch,i)=>({ch,i,alpha:0,x:0}));
+  tagChars=[...'Nine gods. One storm. One truth.'].map((ch,i)=>({ch,i,alpha:0}));
+}
+
+function updateTitle(dt){
+  const speed=dt*3;
+  titleChars.forEach((c,i)=>{ if(t>28+i*0.12) c.alpha=Math.min(1,c.alpha+speed); });
+  tagChars.forEach((c,i)=>{ if(t>30.5+i*0.07) c.alpha=Math.min(1,c.alpha+speed*1.5); });
+  titleDone=titleChars.every(c=>c.alpha>=1);
+  tagDone=tagChars.every(c=>c.alpha>=1);
+}
+
+function drawTitle(){
+  const str='WAR OF THE GODS';
+  cx.font='bold 54px monospace';
+  cx.textAlign='center'; cx.textBaseline='middle';
+  let totalW=0;
+  const metrics=titleChars.map(c=>{ const m=cx.measureText(c.ch); totalW+=m.width; return m.width; });
+  let curX=W/2-totalW/2;
+  titleChars.forEach((c,i)=>{
+    if(c.alpha<=0){ curX+=metrics[i]; return; }
+    cx.save();
+    cx.globalAlpha=c.alpha;
+    cx.shadowColor='#cc88ff'; cx.shadowBlur=20*c.alpha;
+    cx.fillStyle='#ffffff';
+    cx.font='bold 54px monospace';
+    cx.textAlign='left'; cx.textBaseline='middle';
+    cx.fillText(c.ch,curX,H/2-20);
+    cx.restore();
+    curX+=metrics[i];
+  });
+
+  cx.font='13px monospace'; cx.textAlign='left'; cx.textBaseline='middle';
+  const subStr='TENOCHTITLAN';
+  let sw=0; const sm=[];
+  for(const ch of subStr){ const m=cx.measureText(ch); sm.push(m.width); sw+=m.width; }
+  let sx=W/2-sw/2;
+  subStr.split('').forEach((ch,i)=>{
+    const alpha=Math.min(1,Math.max(0,(t-29.2-i*0.09)*4));
+    if(alpha<=0){ sx+=sm[i]; return; }
+    cx.save(); cx.globalAlpha=alpha*0.9;
+    cx.fillStyle='#aa66ff'; cx.font='13px monospace';
+    cx.textAlign='left'; cx.textBaseline='middle';
+    cx.fillText(ch,sx,H/2+16);
+    cx.restore(); sx+=sm[i];
+  });
+
+  // tagline
+  if(t>30.5){
+    cx.font='11px monospace'; cx.textAlign='left'; cx.textBaseline='middle';
+    const tstr='Nine gods. One storm. One truth.';
+    let tw=0; const tm=[];
+    for(const ch of tstr){ const m=cx.measureText(ch); tm.push(m.width); tw+=m.width; }
+    let tx=W/2-tw/2;
+    tstr.split('').forEach((ch,i)=>{
+      const alpha=Math.min(1,Math.max(0,(t-30.5-i*0.07)*5));
+      if(alpha<=0){ tx+=tm[i]; return; }
+      cx.save(); cx.globalAlpha=alpha*0.8;
+      cx.fillStyle='#ddbbff'; cx.font='11px monospace';
+      cx.textAlign='left'; cx.textBaseline='middle';
+      cx.fillText(ch,tx,H/2+34);
+      cx.restore(); tx+=tm[i];
+    });
+  }
+  cx.textBaseline='alphabetic';
+}
+
+// ── Backgrounds ───────────────────────────────────────────────────────────
+function drawBgGather(phase){
+  // dusk sky — pyramid silhouette at bottom
+  const sky=cx.createLinearGradient(0,42,0,H-42);
+  sky.addColorStop(0,'#0a001a');
+  sky.addColorStop(0.5,'#1a0533');
+  sky.addColorStop(1,'#2a0a00');
+  cx.fillStyle=sky; cx.fillRect(0,42,W,H-84);
+  // stars
+  cx.fillStyle='rgba(255,255,255,0.7)';
+  for(let i=0;i<60;i++){
+    const sx=(i*137.5)%W, sy=42+((i*97.3)%(H*0.4));
+    cx.fillRect(sx,sy,1,1);
+  }
+  // pyramid
+  cx.fillStyle='#050010';
+  cx.beginPath();
+  cx.moveTo(W/2-160,H-42); cx.lineTo(W/2,H-160); cx.lineTo(W/2+160,H-42);
+  cx.closePath(); cx.fill();
+  // ground
+  cx.fillStyle='#030008'; cx.fillRect(0,H-60,W,60);
+}
+
+function drawBgStorm(phase){
+  const sky=cx.createLinearGradient(0,42,0,H-42);
+  sky.addColorStop(0,'#040010');
+  sky.addColorStop(0.6,'#0a0525');
+  sky.addColorStop(1,'#020010');
+  cx.fillStyle=sky; cx.fillRect(0,42,W,H-84);
+  // storm cloud shapes
+  cx.fillStyle='rgba(20,10,50,0.8)';
+  [[W/2-150,90,180,55],[W/2+80,75,200,60],[W/2-50,110,250,50]].forEach(([cx2,cy,cw,ch2])=>{
+    cx.beginPath();
+    cx.ellipse(cx2,cy,cw/2,ch2/2,0,0,Math.PI*2);
+    cx.fill();
+  });
+  // light flash
+  if(lightFlash>0){
+    cx.fillStyle=`rgba(180,200,255,${lightFlash*0.18})`;
+    cx.fillRect(0,42,W,H-84);
+    lightFlash=Math.max(0,lightFlash-0.06);
+  }
+  cx.fillStyle='#020008'; cx.fillRect(0,H-60,W,60);
+}
+
+function drawBgCombat(){
+  const sky=cx.createLinearGradient(0,42,0,H-42);
+  sky.addColorStop(0,'#080015');
+  sky.addColorStop(1,'#150030');
+  cx.fillStyle=sky; cx.fillRect(0,42,W,H-84);
+  cx.fillStyle='rgba(80,0,120,0.2)';
+  for(let i=0;i<5;i++){
+    const bx=(i*160+t*20)%W, by=42+((i*60)%(H*0.5));
+    cx.beginPath(); cx.ellipse(bx,by,60,40,0,0,Math.PI*2); cx.fill();
+  }
+  cx.fillStyle='#050010'; cx.fillRect(0,H-60,W,60);
+}
+
+function drawBgFinale(){
+  const sky=cx.createLinearGradient(0,42,0,H-42);
+  sky.addColorStop(0,'#030010');
+  sky.addColorStop(0.5,'#0a0030');
+  sky.addColorStop(1,'#000010');
+  cx.fillStyle=sky; cx.fillRect(0,42,W,H-84);
+  // floating obsidian shards
+  for(let i=0;i<8;i++){
+    const sx=50+i*90,sy=80+Math.sin(t*0.8+i)*20;
+    cx.fillStyle=`rgba(80,20,160,${0.3+i*0.04})`;
+    cx.save(); cx.translate(sx,sy); cx.rotate(t*0.3+i);
+    cx.beginPath();
+    cx.moveTo(0,-12); cx.lineTo(8,0); cx.lineTo(0,12); cx.lineTo(-8,0);
+    cx.closePath(); cx.fill(); cx.restore();
+  }
+  cx.fillStyle='#000010'; cx.fillRect(0,H-60,W,60);
+}
+
+function drawBgTitle(){
+  const sky=cx.createLinearGradient(0,42,0,H-42);
+  sky.addColorStop(0,'#000');
+  sky.addColorStop(0.7,'#050015');
+  sky.addColorStop(1,'#000');
+  cx.fillStyle=sky; cx.fillRect(0,42,W,H-84);
+  // slow star drift
+  cx.fillStyle='rgba(160,100,255,0.6)';
+  for(let i=0;i<40;i++){
+    const sx=(i*173+(t*5))%W, sy=42+((i*113)%(H-84));
+    const ps=0.8+Math.abs(Math.sin(t*0.5+i))*1.2;
+    cx.fillRect(sx,sy,ps,ps);
+  }
+}
+
+// ── Main loop ─────────────────────────────────────────────────────────────
+let lastT=null;
+function getAct(t){
+  if(t<8)  return 0; // GATHER
+  if(t<14) return 1; // CIRCLE
+  if(t<18) return 2; // STORM
+  if(t<25) return 3; // COMBAT
+  if(t<28) return 4; // FINALE
+  return 5;          // TITLE
+}
+
+function frame(now){
+  if(!started){ requestAnimationFrame(frame); return; }
+  if(!lastT) lastT=now;
+  const dt=Math.min((now-lastT)/1000,0.05);
+  lastT=now; t+=dt;
+
+  act=getAct(t);
+  updateRain(dt);
+  if(act>=2&&Math.random()<dt*0.8) triggerLightning();
+
+  cx.clearRect(0,0,W,H);
+
+  if(act===0){ drawBgGather((t)/8); drawAllGods(t/6); }
+  else if(act===1){ drawBgGather(1); drawAllGods(1); }
+  else if(act===2){ drawBgStorm((t-14)/4); drawAllGods(1); drawRain(Math.min(1,(t-13)*0.5)); drawLightning(); }
+  else if(act===3){
+    drawBgCombat();
+    drawRain(0.6);
+    combatTimer+=dt;
+    if(combatTimer>2.8){ combatIdx++; combatTimer=0; }
+    const cp=Math.min(1,combatTimer/0.4);
+    drawCombatShot(combatIdx,cp);
+    drawLightning();
+  }
+  else if(act===4){
+    drawBgFinale();
+    drawRain(0.3);
+    mirrorAngle+=dt*0.3;
+    drawGodSilhouette(W/2,H-85,2.4,GODS[1].color,GODS[1].glow,false);
+    drawObsidianMirror(W/2+30,H/2-20,90,mirrorAngle);
+    cx.fillStyle='rgba(0,0,0,0.4)'; cx.fillRect(0,42,W,H-84);
+    cx.fillStyle=GODS[1].color; cx.shadowColor=GODS[1].glow; cx.shadowBlur=20;
+    cx.font='bold 16px monospace'; cx.textAlign='center';
+    const ph=Math.min(1,(t-22)*0.8);
+    cx.globalAlpha=ph;
+    cx.fillText('TEZCATLIPOCA',W/2,H-42-16);
+    cx.globalAlpha=1; cx.shadowBlur=0;
+  }
+  else {
+    drawBgTitle();
+    updateTitle(dt);
+    drawTitle();
+    drawRain(0.15);
+  }
+
+  drawFX(act>=2?1:0.5);
+  drawLetterbox();
+
+  // top bar text
+  if(act<=4){
+    const labels=['THE GODS GATHER','THE CIRCLE FORMS','THE STORM BREAKS','THE BATTLE','THE OBSIDIAN TRUTH',''];
+    const lbl=labels[act]||'';
+    if(lbl){
+      const lblAlpha=act===0?Math.min(1,t*0.8):1;
+      cx.globalAlpha=lblAlpha*0.85;
+      cx.fillStyle='#aa66ff'; cx.font='10px monospace'; cx.textAlign='center';
+      cx.fillText(lbl,W/2,25);
+      cx.globalAlpha=1;
+    }
+  }
+
+  requestAnimationFrame(frame);
+}
+
+// ── Start ─────────────────────────────────────────────────────────────────
+initRain();
+initTitle();
+requestAnimationFrame(frame);
+
+overlay.addEventListener('click',()=>{
+  if(started) return;
+  initAudio();
+  playScore();
+  started=true;
+  overlay.style.display='none';
+});
+overlay.addEventListener('touchend',e=>{
+  e.preventDefault();
+  if(started) return;
+  initAudio();
+  playScore();
+  started=true;
+  overlay.style.display='none';
+});
+</script>
+</body>
+</html>
